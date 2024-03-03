@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WinuiBackgroudWorkerSample (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WinuiBackgroudWorkerSample (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

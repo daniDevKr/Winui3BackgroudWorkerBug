@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+	
+		<RuntimeIdentifiers>win10-x86;win10-x64</RuntimeIdentifiers>
+		<RootNamespace>Samples.Tasks</RootNamespace>
+	
+		
+		<!--<UseWinUI>true</UseWinUI>-->
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<!-- CsWinRT properties -->
+	<PropertyGroup>
+		<CsWinRTComponent>true</CsWinRTComponent>
+		<CsWinRTWindowsMetadata>10.0.22621.0</CsWinRTWindowsMetadata>
+		
+	
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.7" />
+	
+	</ItemGroup>
+</Project>
