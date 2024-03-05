@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
@@ -8,13 +9,27 @@ namespace Samples.Tasks
 {
     public sealed class ExampleToastTask: IBackgroundTask
     {
-
-        public void Run(IBackgroundTaskInstance taskInstance)
+        private BackgroundTaskDeferral? _taskDeferral;
+        public async void Run(IBackgroundTaskInstance taskInstance)
         {
+            taskInstance.Canceled += TaskInstance_Canceled;
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
+            _taskDeferral = taskInstance.GetDeferral();
 
-            // Perform the background task.
-            SendToast();
+
+            for (int i = 0; i < 30; i++)//simulate long operation
+            {
+                await Task.Delay(1000);
+                Debug.WriteLine($"Runnig time {i} sec.");
+
+            }
+
+
+          
+            SendToast();//show example toast
+
+            Debug.WriteLine("Background " + taskInstance.Task.Name + " Completed.");
+            _taskDeferral.Complete();
         }
 
         private static void SendToast()
@@ -25,6 +40,15 @@ namespace Samples.Tasks
             textElements[1].AppendChild(toastXml.CreateTextNode("Hello world by task!"));
             ToastNotification notification = new(toastXml);
             ToastNotificationManager.CreateToastNotifier().Show(notification);
+        }
+
+        private void TaskInstance_Canceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
+        {
+            if (_taskDeferral != null)
+            {
+                _taskDeferral.Complete();
+                Debug.WriteLine("Background task terminated");
+            }
         }
     }
 }

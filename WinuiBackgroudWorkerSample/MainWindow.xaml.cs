@@ -55,7 +55,8 @@ namespace WinuiBackgroudWorkerSample
                 Name = TaskName,
                 TaskEntryPoint = "Samples.Tasks.ExampleToastTask"
             };
-            builder.SetTrigger(new SystemTrigger(SystemTriggerType.TimeZoneChange, false));
+
+            builder.SetTrigger(new TimeTrigger(15, false));
             builder.Register();
             RegisterTaskBtn.IsEnabled = false;
             UnregisterTaskBtn.IsEnabled = true;
